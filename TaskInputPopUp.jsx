@@ -3,31 +3,63 @@ import { View, Text, TouchableOpacity, Modal, TextInput } from 'react-native';
 
 const TaskInputPopup = ({ isVisible, onClose, onAddTask }) => {
   const [taskTitle, setTaskTitle] = useState('');
-
-  // ... Other state variables and functions for task details
+  const [dopamineRequirement, setDopamineRequirement] = useState('low');
+  // ... Other state variables for task details
 
   return (
     <Modal visible={isVisible} animationType="slide">
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <TextInput
           placeholder="Task Title"
           value={taskTitle}
           onChangeText={text => setTaskTitle(text)}
-          style={{ fontSize: 40 }}
-           />
+        />
+        <View style={{ flexDirection: 'row', marginTop: 10 }}>
+          <TouchableOpacity
+            onPress={() => setDopamineRequirement('high')}
+            style={{
+              backgroundColor: dopamineRequirement === 'high' ? 'red' : 'gray',
+              padding: 10,
+              borderRadius: 5,
+              marginRight: 10,
+            }}
+          >
+            <Text>High</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setDopamineRequirement('medium')}
+            style={{
+              backgroundColor: dopamineRequirement === 'medium' ? 'orange' : 'gray',
+              padding: 10,
+              borderRadius: 5,
+              marginRight: 10,
+            }}
+          >
+            <Text>Medium</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setDopamineRequirement('low')}
+            style={{
+              backgroundColor: dopamineRequirement === 'low' ? 'yellow' : 'gray',
+              padding: 10,
+              borderRadius: 5,
+            }}
+          >
+            <Text>Low</Text>
+          </TouchableOpacity>
+        </View>
         {/* Other input fields and buttons */}
-        <TouchableOpacity TouchableOpacity 
-        onPress={() => onAddTask({
+        <TouchableOpacity onPress={() => onAddTask({
           title: taskTitle,
           dopamineRequirement,
           startTime,
           deadline,
           reminder,
         })}>
-          <Text style={{ fontSize: 30 }}>Add Task</Text>
+          <Text>Add Task</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => onClose()}>
-          <Text style={{ fontSize: 40 }}>Cancel</Text>
+        <TouchableOpacity onPress={onClose}>
+          <Text>Cancel</Text>
         </TouchableOpacity>
       </View>
     </Modal>
